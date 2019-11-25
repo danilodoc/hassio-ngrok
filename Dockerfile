@@ -1,5 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base:5.0.2
-FROM ${BUILD_FROM}
+FROM hassioaddons/base-amd64:5.0.2
 
 RUN set -x \
  && apk add --no-cache curl \
