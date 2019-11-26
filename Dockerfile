@@ -16,7 +16,5 @@ CMD ["/run.sh"]
 LABEL \
     io.hass.name="ngrok Client" \
     io.hass.description="A ngrok Client for Hass.io" \
-    io.hass.arch="${BUILD_ARCH}" \
     io.hass.type="addon" \
-    io.hass.version=${BUILD_VERSION} \
     maintainer="Dylan Hasler <dylan@hasler.me>"
