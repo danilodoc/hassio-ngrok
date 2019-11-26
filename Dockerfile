@@ -15,6 +15,7 @@ RUN set -x \
 RUN  ngrok --version
 
 COPY run.sh /
+RUN chmod +x /run.sh
 CMD ["/run.sh"]
 
 LABEL \
