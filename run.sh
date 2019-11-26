@@ -33,7 +33,7 @@ fi
 
 echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
 
-if [[ !$PORT_80  && !$PORT_443 && !$PORT_8123 ]]; then
+if [[ ![[ $PORT_80 ]]  && ![[ $PORT_443 ]] && ![[ $PORT_8123 ]] ]]; then
   echo "You must specify at least one port to forward."
   exit 1
 fi
