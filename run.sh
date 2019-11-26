@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/env bashio
 set -e
 
 CONFIG_PATH=/data/options.json
@@ -11,7 +11,9 @@ PORT_80=$(jq --raw-output ".PORT_80" $CONFIG_PATH)
 PORT_443=$(jq --raw-output ".PORT_443" $CONFIG_PATH)
 PORT_8123=$(jq --raw-output ".PORT_8123" $CONFIG_PATH)
 
-echo "web_addr: 0.0.0.0:4040" > ~/.ngrok2/ngrok.yml
+touch ~/.ngrok2/ngrok.yml
+
+echo "web_addr: 0.0.0.0:4040" >> ~/.ngrok2/ngrok.yml
 
 declare DOMAIN
 if [ -n "$NGROK_HOSTNAME" ] && [ -n "$NGROK_AUTH" ]; then
