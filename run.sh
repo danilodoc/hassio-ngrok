@@ -31,11 +31,9 @@ if [ -n "$NGROK_AUTH" ]; then
   echo "authtoken: $NGROK_AUTH" >> /ngrok-config/ngrok.yml
 fi
 
-if [ -n "$NGROK_REGION" ]; then
-  echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
-fi
+echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
 
-if [ ![ "$PORT_80" ] && ![ "$PORT_443" ] && ![ "$PORT_8123" ] ]; then
+if [[ !$PORT_80  && $PORT_443 && !$PORT_8123 ]]; then
   echo "You must specify at least one port to forward."
   exit 1
 fi
