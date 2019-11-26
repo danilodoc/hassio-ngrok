@@ -8,15 +8,14 @@ RUN set -x \
  && adduser -h /home/ngrok -D -u 6737 ngrok
 RUN  ngrok --version
 
-COPY --chown=ngrok ngrok.yml /home/ngrok/.ngrok2/
-COPY entrypoint.sh /
+COPY run.sh /
 
 USER ngrok
 ENV USER=ngrok
 
 EXPOSE 4040
 
-CMD ["/entrypoint.sh"]
+CMD ["/run.sh"]
 
 LABEL \
     io.hass.name="ngrok Client" \
