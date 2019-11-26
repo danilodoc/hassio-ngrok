@@ -1,5 +1,4 @@
 #!/usr/bin/env bashio
-set -e
 
 # Get options
 CONFIG_PATH=/data/options.json
