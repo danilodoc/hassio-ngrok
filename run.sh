@@ -69,5 +69,5 @@ if [ "$PORT_8123" == true ]; then
   echo "    bind-tls: both" >> /ngrok-config/ngrok.yml
   echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
-
+cat /ngrok-config/ngrok.yml
 ngrok start -config /ngrok-config/ngrok.yml --all
