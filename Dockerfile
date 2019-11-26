@@ -14,9 +14,6 @@ RUN set -x \
 RUN  ngrok --version
 
 COPY run.sh /
-
-EXPOSE 4040
-
 CMD ["/run.sh"]
 
 LABEL \
