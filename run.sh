@@ -11,9 +11,7 @@ PORT_80=$(jq --raw-output ".PORT_80" $CONFIG_PATH)
 PORT_443=$(jq --raw-output ".PORT_443" $CONFIG_PATH)
 PORT_8123=$(jq --raw-output ".PORT_8123" $CONFIG_PATH)
 
-touch ~/.ngrok2/ngrok.yml
-
-echo "web_addr: 0.0.0.0:4040" >> ~/.ngrok2/ngrok.yml
+echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
 
 declare DOMAIN
 if [ -n "$NGROK_HOSTNAME" ] && [ -n "$NGROK_AUTH" ]; then
@@ -28,48 +26,48 @@ elif [ -n "$NGROK_HOSTNAME" ] || [ -n "$NGROK_SUBDOMAIN" ]; then
 fi
 
 if [ -n "$NGROK_AUTH" ]; then
-  echo "authtoken: $NGROK_AUTH" >> ~/.ngrok2/ngrok.yml
+  echo "authtoken: $NGROK_AUTH" >> /ngrok-config/ngrok.yml
 fi
 
 if [ -n "$NGROK_REGION"]; then
-  echo "region: $NGROK_REGION" >> ~/.ngrok2/ngrok.yml
+  echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
 fi
 
 if [![ $PORT_80 ] && ![ $PORT_443 ] && ![ $PORT_8123 ]]; then
   echo "You must specify at least one port to forward."
   exit 1
 fi
-echo "tunnels:" >> ~/.ngrok2/ngrok.yml
+echo "tunnels:" >> /ngrok-config/ngrok.yml
 if [$PORT_80]; then
-  echo "  http-80:" >> ~/.ngrok2/ngrok.yml
-  echo "    proto: http" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: 127.0.0.1:80" >> ~/.ngrok2/ngrok.yml
+  echo "  http-80:" >> /ngrok-config/ngrok.yml
+  echo "    proto: http" >> /ngrok-config/ngrok.yml
+  echo "    addr: 127.0.0.1:80" >> /ngrok-config/ngrok.yml
   if [ -n $DOMAIN ]; then
-    echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
+    echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
-  echo "    bind-tls: false" >> ~/.ngrok2/ngrok.yml
-  echo "    inspect: $NGROK_INSPECT" >> ~/.ngrok2/ngrok.yml
+  echo "    bind-tls: false" >> /ngrok-config/ngrok.yml
+  echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
 if [$PORT_443]; then
-  echo "  tls-443:" >> ~/.ngrok2/ngrok.yml
-  echo "    proto: tls" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: 127.0.0.1:443" >> ~/.ngrok2/ngrok.yml
+  echo "  tls-443:" >> /ngrok-config/ngrok.yml
+  echo "    proto: tls" >> /ngrok-config/ngrok.yml
+  echo "    addr: 127.0.0.1:443" >> /ngrok-config/ngrok.yml
   if [ -n $DOMAIN ]; then
-    echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
+    echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
-  echo "    inspect: $NGROK_INSPECT" >> ~/.ngrok2/ngrok.yml
+  echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
 if [$PORT_8123]; then
-  echo "  http-8123:" >> ~/.ngrok2/ngrok.yml
-  echo "    proto: http" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: 127.0.0.1:8123" >> ~/.ngrok2/ngrok.yml
+  echo "  http-8123:" >> /ngrok-config/ngrok.yml
+  echo "    proto: http" >> /ngrok-config/ngrok.yml
+  echo "    addr: 127.0.0.1:8123" >> /ngrok-config/ngrok.yml
   if [ -n $DOMAIN ]; then
-    echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
+    echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
-  echo "    bind-tls: both" >> ~/.ngrok2/ngrok.yml
-  echo "    inspect: $NGROK_INSPECT" >> ~/.ngrok2/ngrok.yml
+  echo "    bind-tls: both" >> /ngrok-config/ngrok.yml
+  echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
-ngrok start
+ngrok start -config /ngrok-config/ngrok.yml --all
