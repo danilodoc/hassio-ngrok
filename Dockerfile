@@ -15,6 +15,6 @@ CMD ["/run.sh"]
 
 LABEL \
     io.hass.name="ngrok Client" \
-    io.hass.description="A ngrok Client for Hass.io" \
+    io.hass.description="A ngrok client for Hass.io" \
     io.hass.type="addon" \
     maintainer="Dylan Hasler <dylan@hasler.me>"
