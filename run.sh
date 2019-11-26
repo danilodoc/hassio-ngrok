@@ -1,7 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bashio
 set -e
 
-# Get options
 CONFIG_PATH=/data/options.json
 NGROK_AUTH=$(jq --raw-output ".NGROK_AUTH" $CONFIG_PATH)
 NGROK_SUBDOMAIN=$(jq --raw-output ".NGROK_SUBDOMAIN" $CONFIG_PATH)
@@ -12,11 +11,9 @@ PORT_80=$(jq --raw-output ".PORT_80" $CONFIG_PATH)
 PORT_443=$(jq --raw-output ".PORT_443" $CONFIG_PATH)
 PORT_8123=$(jq --raw-output ".PORT_8123" $CONFIG_PATH)
 
-# Create a new config file.
 echo "web_addr: 0.0.0.0:4040" > ~/.ngrok2/ngrok.yml
 
-# Set custom domain and check for authentication token.
-DOMAIN=null
+declare DOMAIN
 if [ -n "$NGROK_HOSTNAME" ] && [ -n "$NGROK_AUTH" ]; then
   DOMAIN="hostname: $NGROK_HOSTNAME"
 elif [ -n "$NGROK_SUBDOMAIN" ] && [ -n "$NGROK_AUTH" ]; then
@@ -28,17 +25,14 @@ elif [ -n "$NGROK_HOSTNAME" ] || [ -n "$NGROK_SUBDOMAIN" ]; then
   fi
 fi
 
-# Set authentication token
 if [ -n "$NGROK_AUTH" ]; then
   echo "authtoken: $NGROK_AUTH" >> ~/.ngrok2/ngrok.yml
 fi
 
-# Set region
 if [ -n "$NGROK_REGION"]; then
   echo "region: $NGROK_REGION" >> ~/.ngrok2/ngrok.yml
 fi
 
-# Define tunnels
 if [![ $PORT_80 ] && ![ $PORT_443 ] && ![ $PORT_8123 ]]; then
   echo "You must specify at least one port to forward."
   exit 1
