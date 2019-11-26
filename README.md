@@ -1,2 +1,2 @@
-# hassio-ngrok
-An ngrok client for Hass.io
+# Hass.io ngrok Client
+A ngrok client for Hass.io

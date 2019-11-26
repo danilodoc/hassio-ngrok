@@ -5,13 +5,9 @@ RUN set -x \
  && curl -Lo /ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip \
  && unzip -o /ngrok.zip -d /bin \
  && rm -f /ngrok.zip \
- && adduser -h /home/ngrok -D -u 6737 ngrok
 RUN  ngrok --version
 
 COPY run.sh /
-
-USER ngrok
-ENV USER=ngrok
 
 EXPOSE 4040
 
