@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/base-amd64:5.0.2
+ARG BUILD_FROM=homeassistant/amd64-base:3.10
 FROM $BUILD_FROM
 
 ARG BUILD_ARCH=amd64
