@@ -15,7 +15,7 @@ RUN set -x \
 RUN  ngrok --version
 
 COPY run.sh /
-CMD ["/run.sh"]
+CMD ["chmod", "+x", "/run.sh"]
 
 LABEL \
     io.hass.name="ngrok Client" \
