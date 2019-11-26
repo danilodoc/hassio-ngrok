@@ -3,7 +3,6 @@
 # Get options
 CONFIG_PATH=/data/options.json
 NGROK_AUTH=$(jq --raw-output ".NGROK_AUTH" $CONFIG_PATH)
-NGROK_ADDR=$(jq --raw-output ".NGROK_ADDR" $CONFIG_PATH)
 NGROK_SUBDOMAIN=$(jq --raw-output ".NGROK_SUBDOMAIN" $CONFIG_PATH)
 NGROK_HOSTNAME=$(jq --raw-output ".NGROK_HOSTNAME" $CONFIG_PATH)
 NGROK_REGION=$(jq --raw-output ".NGROK_REGION" $CONFIG_PATH)
@@ -47,7 +46,7 @@ echo "tunnels:" >> ~/.ngrok2/ngrok.yml
 if [$PORT_80]; then
   echo "  http-80:" >> ~/.ngrok2/ngrok.yml
   echo "    proto: http" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: $NGROK_ADDR:80" >> ~/.ngrok2/ngrok.yml
+  echo "    addr: 127.0.0.1:80" >> ~/.ngrok2/ngrok.yml
   if [ -n $DOMAIN ]; then
     echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
   fi
@@ -58,7 +57,7 @@ fi
 if [$PORT_443]; then
   echo "  tls-443:" >> ~/.ngrok2/ngrok.yml
   echo "    proto: tls" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: $NGROK_ADDR:443" >> ~/.ngrok2/ngrok.yml
+  echo "    addr: 127.0.0.1:443" >> ~/.ngrok2/ngrok.yml
   if [ -n $DOMAIN ]; then
     echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
   fi
@@ -68,7 +67,7 @@ fi
 if [$PORT_8123]; then
   echo "  http-8123:" >> ~/.ngrok2/ngrok.yml
   echo "    proto: http" >> ~/.ngrok2/ngrok.yml
-  echo "    addr: $NGROK_ADDR:8123" >> ~/.ngrok2/ngrok.yml
+  echo "    addr: 127.0.0.1:8123" >> ~/.ngrok2/ngrok.yml
   if [ -n $DOMAIN ]; then
     echo "    $DOMAIN" >> ~/.ngrok2/ngrok.yml
   fi
