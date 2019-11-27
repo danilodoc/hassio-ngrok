@@ -5,10 +5,10 @@ A ngrok client for Hass.io
 
 ## About
 
-This add-on creates a ngrok tunnel over http 80 and tls 443. This is particularlly useful if you're ISP does not allow you to port-forward.
+This add-on creates a ngrok tunnel over http and https. Some ISPs do not allow port forwarding due to port blocking or CG-NAT. If you're able to setup a port forward, do not use this addon.
 It is intented to be paired with a proxy, such as [Nginx Proxy Manager](https://github.com/hassio-addons/addon-nginx-proxy-manager).
 
-**Note**: _ngrok could in theory man-in-the-middle your tunnels. Using a TLS tunnel may help prevent this because you can control the certificate. If you have the option to port forward, that would be recommended because there is less overhead and it is more secure. To use some features of this add-on, you need a paid ngrok account._
+**Note**: _ngrok could man-in-the-middle your http tunnels if they wanted. Using a TLS tunnel will prevent this because you can control the certificate. To use some features of this add-on, you need a paid ngrok account._
 
 ## How to use
 
@@ -29,8 +29,7 @@ Example add-on configuration:
   "NGROK_HOSTNAME": "*.example.com*",
   "NGROK_REGION": "us",
   "NGROK_INSPECT": false,
-  "PORT_80": true,
-  "PORT_443": true
+  "USE_TLS": true
 }
 ```
 
@@ -69,19 +68,13 @@ _true or false_
 
 Choose whether to allow ngrok to inspect your traffic. Typically this is disabled. This option only applies to http tunnels. For more information on what this does, see [ngrok's documentation](https://ngrok.com/docs#getting-started-inspect).
 
-### Option: `PORT_80`
-
-_true or false_
-
-Choose whether a tunnel should be created for port 80. This option uses a HTTP tunnel.
-
-### Option: `PORT_443`
+### Option: `USE_TLS`
 
 **Note**: _This option requires you set NGROK_AUTH and have a paid account_
 
 _true or false_
 
-Choose wehther a tunnel should be created for port 443. This option uses a tls tunnel. Using a tls tunnel avoids certificate errors and reduces the chances of a man-in-the-middle attack.
+Choose whether a tls tunnel should be created for port 443 instead of http. Using a tls tunnel avoids certificate errors on custom domains and prevents ngrok from being able to man-in-the-middle your encrypted connection. If using NGROK_HOSTNAME, this is highly recommended.
 
 ## Known issues
 ARM is not supported (Raspberry Pi) due to a formatting error in run.sh that I have not been able to successfully track down. If I solve this, I will release an update with ARM support.
