@@ -48,7 +48,7 @@ Specifies a custom ngrok.io subdomain to use. Check out [ngrok's documentation](
 
 **Note**: _This option requires you set NGROK_AUTH and have a paid account_
 
-Specifies a custom domain name to use. The use of wildcard domains is allowed (ex. *.example.com). Check out [ngrok's documentation](https://ngrok.com/docs#http-custom-domains) for more information on this option. You may specify this option OR the NGROK_SUBDOMAIN option. You may specify this option OR the NGROK_HOSTNAME option. Or, you may leave both options blank to get a random subdomain assigned to you. This option will always take priority over NGROK_SUBDOMAIN.
+Specifies a custom domain name to use. The use of wildcard domains is allowed (ex. *.example.com). Check out [ngrok's documentation](https://ngrok.com/docs#http-custom-domains) for more information on this option. You may specify this option OR the NGROK_SUBDOMAIN option. Alternatively, you may leave both options blank to get a random subdomain assigned to you (you will need to open the web-ui to find what the random subdomain is). This option will always take priority over NGROK_SUBDOMAIN.
 
 ### Option: `NGROK_REGION`
 
