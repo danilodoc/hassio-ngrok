@@ -65,4 +65,4 @@ echo "Current config:"
 cat /ngrok-config/ngrok.yml
 echo ""
 
-ngrok start --config /ngrok-config/ngrok.yml --all &
+ngrok start --config /ngrok-config/ngrok.yml --all
