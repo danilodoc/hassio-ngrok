@@ -31,7 +31,7 @@ fi
 
 echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
 
-if [" $PORT_443" == true && -z "$NGROK_AUTH" ]; then
+if [ "$PORT_443" == true && -z "$NGROK_AUTH" ]; then
   echo "Can't use tls tunnels without an authentication token and a paid account."
   $PORT_443=false
 fi
