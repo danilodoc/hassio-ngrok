@@ -5,7 +5,7 @@ A ngrok client for Hass.io
 
 ## About
 
-This add-on creates a ngrok tunnel over http 80 and tls 443. This is particularlly useful if you're ISP does not allow you to port-forward.
+This add-on creates a ngrok tunnel over http 80 and tls 443. This is particularly useful if you're ISP does not allow you to port-forward.
 It is intented to be paired with a proxy, such as [Nginx Proxy Manager](https://github.com/hassio-addons/addon-nginx-proxy-manager).
 
 **Note**: _ngrok could in theory man-in-the-middle your tunnels. Using a TLS tunnel may help prevent this because you can control the certificate. If you have the option to port forward, that would be recommended because there is less overhead and it is more secure. To use some features of this add-on, you need a paid ngrok account._
