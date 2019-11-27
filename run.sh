@@ -15,9 +15,9 @@ echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
 
 DOMAIN=""
 if [ -n "$NGROK_HOSTNAME" ] && [ -n "$NGROK_AUTH" ]; then
-  DOMAIN="hostname: $NGROK_HOSTNAME"
+  DOMAIN="hostname: \"$NGROK_HOSTNAME\""
 elif [ -n "$NGROK_SUBDOMAIN" ] && [ -n "$NGROK_AUTH" ]; then
-  DOMAIN="subdomain: $NGROK_SUBDOMAIN"
+  DOMAIN="subdomain: \"$NGROK_SUBDOMAIN\""
 elif [ -n "$NGROK_HOSTNAME" ] || [ -n "$NGROK_SUBDOMAIN" ]; then
   if [ -z "$NGROK_AUTH" ]; then
     echo "You must specify an authentication token after registering at https://ngrok.com to use custom domains."
@@ -42,7 +42,7 @@ if [[ $PORT_80 == false && $PORT_443 == false && $PORT_8123 == false ]]; then
 fi
 echo "tunnels:" >> /ngrok-config/ngrok.yml
 if [ "$PORT_80" == true ]; then
-  echo "  proxy-http:" >> /ngrok-config/ngrok.yml
+  echo "  http-80:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
   echo "    addr: 80" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
@@ -53,7 +53,7 @@ if [ "$PORT_80" == true ]; then
 fi
 
 if [ "$PORT_443" == true ]; then
-  echo "  proxy-https:" >> /ngrok-config/ngrok.yml
+  echo "  tls-443:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
   echo "    addr: 443" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
@@ -73,7 +73,7 @@ if [ "$PORT_8123" == true ]; then
   echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
-echo "Current config:\n"
+echo "Current config:"
 cat /ngrok-config/ngrok.yml
 echo ""
 
