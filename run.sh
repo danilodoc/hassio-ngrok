@@ -31,6 +31,11 @@ fi
 
 echo "region: $NGROK_REGION" >> /ngrok-config/ngrok.yml
 
+if [" $PORT_443" == true && -z "$NGROK_AUTH" ]; then
+  echo "Can't use tls tunnels without an authentication token and a paid account."
+  $PORT_443=false
+fi
+
 if [[ $PORT_80 == false && $PORT_443 == false && $PORT_8123 == false ]]; then
   echo "You must specify at least one port to forward."
   exit 1
@@ -39,7 +44,7 @@ echo "tunnels:" >> /ngrok-config/ngrok.yml
 if [ "$PORT_80" == true ]; then
   echo "  http-80:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
-  echo "    addr: 127.0.0.1:80" >> /ngrok-config/ngrok.yml
+  echo "    addr: \"127.0.0.1:80\"" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
@@ -50,7 +55,7 @@ fi
 if [ "$PORT_443" == true ]; then
   echo "  tls-443:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
-  echo "    addr: 127.0.0.1:443" >> /ngrok-config/ngrok.yml
+  echo "    addr: \"127.0.0.1:443\"" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
@@ -60,7 +65,7 @@ fi
 if [ "$PORT_8123" == true ]; then
   echo "  http-8123:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
-  echo "    addr: 127.0.0.1:8123" >> /ngrok-config/ngrok.yml
+  echo "    addr: \"127.0.0.1:8123\"" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
