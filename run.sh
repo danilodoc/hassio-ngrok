@@ -40,7 +40,7 @@ if [ "$PORT_80" == true ]; then
   echo "  http-80:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
   echo "    addr: 127.0.0.1:80" >> /ngrok-config/ngrok.yml
-  if [ -n "$DOMAIN" ]; then
+  if [ -z "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
   echo "    bind-tls: false" >> /ngrok-config/ngrok.yml
@@ -51,7 +51,7 @@ if [ "$PORT_443" == true ]; then
   echo "  tls-443:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
   echo "    addr: 127.0.0.1:443" >> /ngrok-config/ngrok.yml
-  if [ -n "$DOMAIN" ]; then
+  if [ -z "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
   echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
@@ -61,7 +61,7 @@ if [ "$PORT_8123" == true ]; then
   echo "  http-8123:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
   echo "    addr: 127.0.0.1:8123" >> /ngrok-config/ngrok.yml
-  if [ -n "$DOMAIN" ]; then
+  if [ -z "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
   echo "    bind-tls: both" >> /ngrok-config/ngrok.yml
