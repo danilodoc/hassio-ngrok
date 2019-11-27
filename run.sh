@@ -44,7 +44,7 @@ echo "    addr: 80" >> /ngrok-config/ngrok.yml
 if [ -n "$DOMAIN" ]; then
   echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
 fi
-if [ "USE_TLS" == true ]; then
+if [ "$USE_TLS" == true ]; then
   echo "    bind-tls: false" >> /ngrok-config/ngrok.yml
 fi
 echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
