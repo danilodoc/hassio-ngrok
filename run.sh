@@ -58,7 +58,6 @@ if [ "$PORT_443" == true ]; then
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
-  echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
 echo "Current config:"

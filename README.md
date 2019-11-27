@@ -8,7 +8,7 @@ A ngrok client for Hass.io
 This add-on creates a ngrok tunnel over http 80 and tls 443. This is particularlly useful if you're ISP does not allow you to port-forward.
 It is intented to be paired with a proxy, such as [Nginx Proxy Manager](https://github.com/hassio-addons/addon-nginx-proxy-manager).
 
-**Note**: _ngrok could in theory man-in-the-middle your tunnels. Using a TLS tunnel may help prevent this because you can control the certificate. If you have the option to port forward, that option has less overhead and is more secure. To use some features of this add-on, you need a paid ngrok account._
+**Note**: _ngrok could in theory man-in-the-middle your tunnels. Using a TLS tunnel may help prevent this because you can control the certificate. If you have the option to port forward, that would be recommended because there is less overhead and it is more secure. To use some features of this add-on, you need a paid ngrok account._
 
 ## How to use
 
@@ -67,7 +67,7 @@ in | India
 
 _true or false_
 
-Choose whether to allow ngrok to inspect your traffic. Typically this is disabled. For more information on what this does, see [ngrok's documentation](https://ngrok.com/docs#getting-started-inspect).
+Choose whether to allow ngrok to inspect your traffic. Typically this is disabled. This option only applies to http tunnels. For more information on what this does, see [ngrok's documentation](https://ngrok.com/docs#getting-started-inspect).
 
 ### Option: `PORT_80`
 
