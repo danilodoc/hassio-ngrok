@@ -23,8 +23,6 @@ elif [ -n "$NGROK_HOSTNAME" ] || [ -n "$NGROK_SUBDOMAIN" ]; then
     echo "You must specify an authentication token after registering at https://ngrok.com to use custom domains."
     exit 1
   fi
-else
-  DOMAIN=null
 fi
 
 if [ -n "$NGROK_AUTH" ]; then
