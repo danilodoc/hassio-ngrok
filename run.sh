@@ -9,7 +9,6 @@ NGROK_REGION=$(jq --raw-output ".NGROK_REGION" $CONFIG_PATH)
 NGROK_INSPECT=$(jq --raw-output ".NGROK_INSPECT" $CONFIG_PATH)
 PORT_80=$(jq --raw-output ".PORT_80" $CONFIG_PATH)
 PORT_443=$(jq --raw-output ".PORT_443" $CONFIG_PATH)
-PORT_8123=$(jq --raw-output ".PORT_8123" $CONFIG_PATH)
 
 echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
 
@@ -36,7 +35,7 @@ if [ "$PORT_443" == true && -z "$NGROK_AUTH" ]; then
   $PORT_443=false
 fi
 
-if [[ $PORT_80 == false && $PORT_443 == false && $PORT_8123 == false ]]; then
+if [ "$PORT_80" == false && "$PORT_443" == false ]; then
   echo "You must specify at least one port to forward."
   exit 1
 fi
@@ -62,19 +61,8 @@ if [ "$PORT_443" == true ]; then
   echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 fi
 
-if [ "$PORT_8123" == true ]; then
-  echo "  http-8123:" >> /ngrok-config/ngrok.yml
-  echo "    proto: http" >> /ngrok-config/ngrok.yml
-  echo "    addr: 8123" >> /ngrok-config/ngrok.yml
-  if [ -n "$DOMAIN" ]; then
-    echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
-  fi
-  echo "    bind-tls: both" >> /ngrok-config/ngrok.yml
-  echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
-fi
-
 echo "Current config:"
 cat /ngrok-config/ngrok.yml
 echo ""
 
-ngrok start --config /ngrok-config/ngrok.yml --all
+ngrok start --config /ngrok-config/ngrok.yml --all &
