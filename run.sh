@@ -42,7 +42,7 @@ if [[ $PORT_80 == false && $PORT_443 == false && $PORT_8123 == false ]]; then
 fi
 echo "tunnels:" >> /ngrok-config/ngrok.yml
 if [ "$PORT_80" == true ]; then
-  echo "  http-80:" >> /ngrok-config/ngrok.yml
+  echo "  proxy-http:" >> /ngrok-config/ngrok.yml
   echo "    proto: http" >> /ngrok-config/ngrok.yml
   echo "    addr: 80" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
@@ -53,7 +53,7 @@ if [ "$PORT_80" == true ]; then
 fi
 
 if [ "$PORT_443" == true ]; then
-  echo "  tls-443:" >> /ngrok-config/ngrok.yml
+  echo "  proxy-https:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
   echo "    addr: 443" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
