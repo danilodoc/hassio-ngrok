@@ -10,14 +10,12 @@ variables:
   - name: versionBuilder
     value: '2.0'
   - group: docker
-  - name: 'addon'
-    value: 'ngrok'
-  - name: 'arch' 
-    value: '--all'
+  - addon: 'ngrok'
+  - arch: '--all'
 
 jobs:
 
-- job: '${{ parameters.addon }}'
+- job: '$(addon)'
   condition: eq(variables['Build.SourceBranchName'], 'master')
   pool:
     vmImage: 'ubuntu-latest'
@@ -32,6 +30,6 @@ jobs:
         -v ~/.docker:/root/.docker \
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$(versionBuilder) \
-        --addon ${{ parameters.arch }} -t /data/${{ parameters.addon }} \
+        --addon $(arch) -t /data/$(addon) \
         --docker-hub homeassistant --docker-hub-check
-    displayName: 'Build ${{ parameters.addon }}'
+    displayName: 'Build $(addon)'
