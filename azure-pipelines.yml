@@ -10,8 +10,10 @@ variables:
   - name: versionBuilder
     value: '2.0'
   - group: docker
-  - addon: 'ngrok'
-  - arch: '--all'
+  - name: addon
+    value: 'ngrok'
+  - name: arch
+    value: '--all'
 
 jobs:
 
