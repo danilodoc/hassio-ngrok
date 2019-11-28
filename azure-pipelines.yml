@@ -20,7 +20,7 @@ variables:
 
 
 jobs:
-- template: ThePicklenat0r/hassio-addons/blob/master/.azure/azp-template-addon.yml
+- template: /.azure/azp-template-addon.yml@hassio-addons
   parameters:
     addon: 'ngrok'
     arch: '--all'
