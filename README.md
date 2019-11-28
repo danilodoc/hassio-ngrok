@@ -77,4 +77,6 @@ _true or false_
 Choose whether a tls tunnel should be created for port 443 instead of http. Using a tls tunnel avoids certificate errors on custom domains and prevents ngrok from being able to man-in-the-middle your encrypted connection. If using NGROK_HOSTNAME, this is highly recommended.
 
 ## Known issues
-ARM is not supported (Raspberry Pi) due to a formatting error in run.sh that I have not been able to successfully track down. If I solve this, I will release an update with ARM support.
+
+* Only amd64 is currently supported. I'm not sure how to build for multiple architectures without manually duplicating the addon. Once I figure out a better way, I'll add support.
+* Currently no support for a custom config file. This is coming soon&trade;
