@@ -1,11 +1,7 @@
 # https://dev.azure.com/dylan-hasler
-
-resources:
-  repositories:
-    - repository: hassio-addons
-      type: github
-      name: ThePicklenat0r/hassio-addons
-      endpoint: ThePicklenat0r
+parameters:
+  addon: 'ngrok'
+  arch: '--all'
 
 trigger:
   branches:
@@ -20,7 +16,21 @@ variables:
 
 
 jobs:
-- template: /.azure/azp-template-addon.yml@hassio-addons
-  parameters:
-    addon: 'ngrok'
-    arch: '--all'
+- job: '${{ parameters.addon }}'
+  condition: eq(variables['Build.SourceBranchName'], 'master')
+  pool:
+    vmImage: 'ubuntu-latest'
+  timeoutInMinutes: 360
+  steps:
+  - script: sudo docker login -u $(dockerUser) -p $(dockerToken)
+    displayName: 'Docker hub login'
+  - script: sudo docker pull homeassistant/amd64-builder:$(versionBuilder)
+    displayName: 'Install Builder'
+  - script: |
+      sudo docker run --rm --privileged \
+        -v ~/.docker:/root/.docker \
+        -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
+        homeassistant/amd64-builder:$(versionBuilder) \
+        --addon ${{ parameters.arch }} -t /data \
+        --docker-hub homeassistant --docker-hub-check
+    displayName: 'Build ${{ parameters.addon }}'
