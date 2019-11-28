@@ -4,7 +4,7 @@ resources:
   repositories:
     - repository: hassio-addons
       type: github
-      name: ThePicklenat0r
+      name: ThePicklenat0r/hassio-addons
       endpoint: ThePicklenat0r
 
 trigger:
