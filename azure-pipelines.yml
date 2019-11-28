@@ -5,6 +5,7 @@ resources:
     - repository: hassio-addons
       type: github
       name: ThePicklenat0r/hassio-addons
+      endpoint: ThePicklenat0r
 
 trigger:
   branches:
