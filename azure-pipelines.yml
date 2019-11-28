@@ -15,7 +15,7 @@ pr: none
 
 variables:
   - name: versionBuilder
-    value: '2.0'
+    value: '6.6'
   - group: docker
 
 
