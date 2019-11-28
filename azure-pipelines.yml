@@ -13,7 +13,7 @@ variables:
 
 
 jobs:
-- template: https://raw.githubusercontent.com/ThePicklenat0r/hassio-addons/master/.azure/azp-template-addon.yml
+- template: "https://raw.githubusercontent.com/ThePicklenat0r/hassio-addons/master/.azure/azp-template-addon.yml"
   parameters:
     addon: 'ngrok'
     arch: '--all'
