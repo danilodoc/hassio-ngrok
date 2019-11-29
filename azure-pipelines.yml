@@ -2,15 +2,15 @@
 
 resources:
   repositories:
-    - repository: azp-templates
+    - repository: templates
       type: github
       name: ThePicklenat0r/azp-templates
       endpoint: ThePicklenat0r
 
 trigger:
-  tags:
+  branches:
     include:
-      - '*'
+      - master
 pr: none
 
 variables:
@@ -20,7 +20,7 @@ variables:
 
 
 jobs:
-- template: /hassio-addons/azp-template-addon.yml@azp-templates
+- template: /hassio-addons/jobs/azp-build-addon.yml@templates
   parameters:
     addon: 'ngrok'
     arch: '--all'
