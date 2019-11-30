@@ -18,10 +18,10 @@
   "startup": "system",
   "boot": "auto",
   "ports": {
-    "4040/tcp": "4040"
+    "80/tcp": "4040"
   },
   "ports_description": {
-    "4040/tcp": "Web interface"
+    "80/tcp": "Web interface (Not required for Hass.io Ingress"
   },
   "options": {
     "NGROK_AUTH": "",
