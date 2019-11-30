@@ -40,7 +40,7 @@ fi
 echo "tunnels:" >> /ngrok-config/ngrok.yml
 echo "  http:" >> /ngrok-config/ngrok.yml
 echo "    proto: http" >> /ngrok-config/ngrok.yml
-echo "    addr: %%hassio_ip%%:80" >> /ngrok-config/ngrok.yml
+echo "    addr: 80" >> /ngrok-config/ngrok.yml
 if [ -n "$DOMAIN" ]; then
   echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
 fi
@@ -53,7 +53,7 @@ echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 if [ "$USE_TLS" == true ]; then
   echo "  tls-443:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
-  echo "    addr: %%hassio_ip%%:443" >> /ngrok-config/ngrok.yml
+  echo "    addr: 443" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi

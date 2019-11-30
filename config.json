@@ -5,6 +5,7 @@
   "description": "A ngrok client for Hass.io",
   "webui": "http://[HOST]:[PORT:4040]",
   "url": "https://github.com/ThePicklenat0r/hassio-ngrok",
+  "host_network": true,
   "ingress": true,
   "panel_icon": "mdi:wan",
   "arch": [
