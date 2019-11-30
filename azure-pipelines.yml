@@ -24,4 +24,3 @@ stages:
   parameters:
     addon: 'ngrok'
     arch: '--all'
-    repo: 'hassio-ngrok'
