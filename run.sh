@@ -9,7 +9,7 @@ NGROK_REGION=$(jq --raw-output ".NGROK_REGION" $CONFIG_PATH)
 NGROK_INSPECT=$(jq --raw-output ".NGROK_INSPECT" $CONFIG_PATH)
 USE_TLS=$(jq --raw-output ".USE_TLS" $CONFIG_PATH)
 
-echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
+echo "web_addr: 55927" > /ngrok-config/ngrok.yml
 
 DOMAIN=""
 if [ -n "$NGROK_HOSTNAME" ] && [ -n "$NGROK_AUTH" ]; then
@@ -40,7 +40,7 @@ fi
 echo "tunnels:" >> /ngrok-config/ngrok.yml
 echo "  http:" >> /ngrok-config/ngrok.yml
 echo "    proto: http" >> /ngrok-config/ngrok.yml
-echo "    addr: 80" >> /ngrok-config/ngrok.yml
+echo "    addr: %%hassio_ip%%:80" >> /ngrok-config/ngrok.yml
 if [ -n "$DOMAIN" ]; then
   echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
 fi
@@ -53,7 +53,7 @@ echo "    inspect: $NGROK_INSPECT" >> /ngrok-config/ngrok.yml
 if [ "$USE_TLS" == true ]; then
   echo "  tls-443:" >> /ngrok-config/ngrok.yml
   echo "    proto: tls" >> /ngrok-config/ngrok.yml
-  echo "    addr: 443" >> /ngrok-config/ngrok.yml
+  echo "    addr: %%hassio_ip%%:443" >> /ngrok-config/ngrok.yml
   if [ -n "$DOMAIN" ]; then
     echo "    $DOMAIN" >> /ngrok-config/ngrok.yml
   fi
