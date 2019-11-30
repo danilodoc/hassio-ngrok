@@ -4,7 +4,7 @@ FROM $BUILD_FROM
 ARG BUILD_ARCH=amd64
 RUN set -x \
  && apk add --no-cache \
-        curl
+        curl \
         lua-resty-http=0.13-r0 \
         nginx-mod-http-lua=1.16.1-r1 \
         nginx=1.16.1-r1 \
