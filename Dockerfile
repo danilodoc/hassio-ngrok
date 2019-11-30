@@ -19,6 +19,7 @@ RUN set -x \
  && rm -f /ngrok.zip
 RUN  ngrok --version
 RUN mkdir /ngrok-config
+COPY rootfs /
 COPY run.sh /
 RUN chmod +x /run.sh
 CMD ["/run.sh"]
