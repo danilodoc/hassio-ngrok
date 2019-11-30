@@ -78,5 +78,4 @@ Choose whether a tls tunnel should be created for port 443 instead of http. Usin
 
 ## Known issues
 
-* Only amd64 is currently supported. I'm not sure how to build for multiple architectures without manually duplicating the addon. Once I figure out a better way, I'll add support.
 * Currently no support for a custom config file. This is coming soon&trade;
