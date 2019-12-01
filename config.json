@@ -20,6 +20,7 @@
   "ports_description": {
     "4040/tcp": "Web interface"
   },
+  "map": ["share:r"],
   "options": {
     "auth_token": "",
     "region": "us",
