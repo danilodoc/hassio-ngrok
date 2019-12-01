@@ -27,8 +27,7 @@
       {
         "proto": "http",
         "addr": "172.30.33.2:8123",
-        "inspect": false,
-        "bind-tls": "both"
+        "inspect": false
       }
     ]
   },
