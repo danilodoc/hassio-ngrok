@@ -2,11 +2,18 @@
 set -e
 mkdir -p /ngrok-config
 
+echo "$(bashio::config 'auth_token')"
+echo "$(bashio::config 'region')"
+echo "$(bashio::config 'port')"
+echo "$(bashio::config 'inspect')"
+echo "$(bashio::config 'subdomain')"
+echo "$(bashio::config 'hostname')"
+echo "$(bashio::config 'use_tls')"
+
 if [[ -f /share/ngrok.yml ]]; then
   echo "Starting ngrok using config file found at $configFile"
   cp $configFile /ngrok-config/ngrok.yml
 else
-
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
   if [[ -n "$(bashio::config 'auth_token')" ]]; then
     echo "authtoken: $(bashio::config 'auth_token')" >> /ngrok-config/ngrok.yml
@@ -40,5 +47,4 @@ else
   cat /ngrok-config/ngrok.yml
   echo "Starting ngrok"
 fi
-$(bashio::config)
 ngrok start --config /ngrok-config/ngrok.yml --all
