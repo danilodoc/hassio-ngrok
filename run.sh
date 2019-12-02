@@ -40,5 +40,5 @@ else
   cat /ngrok-config/ngrok.yml
   echo "Starting ngrok"
 fi
-
+$(bashio::config)
 ngrok start --config /ngrok-config/ngrok.yml --all
