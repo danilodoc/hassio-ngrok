@@ -24,7 +24,7 @@ else
     echo "No region defined, default region is US."
   fi
   echo "tunnels:" >> /ngrok-config/ngrok.yml
-  echo "  home-assistant:" >> /ngrok-config/ngrok.yml
+  echo "  hassio:" >> /ngrok-config/ngrok.yml
   if [[ $(bashio::config 'use_tls') == true ]]; then
     echo "    proto: tls" >> /ngrok-config/ngrok.yml
   else 
