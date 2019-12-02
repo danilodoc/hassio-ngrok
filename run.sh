@@ -31,9 +31,9 @@ else
     exit 1
   fi
   if [[ $(bashio::config 'hostname') != "null" ]]; then
-    echo "    hostname: $(bashio::config 'hostname')" >> /ngrok-config/ngrok.yml
+    echo "    hostname: \"$(bashio::config 'hostname')\"" >> /ngrok-config/ngrok.yml
   elif [[ $(bashio::config 'subdomain') != "null" ]]; then
-    echo "    subdomain: $(bashio::config 'subdomain')" >> /ngrok-config/ngrok.yml
+    echo "    subdomain: \"$(bashio::config 'subdomain')\"" >> /ngrok-config/ngrok.yml
   fi
 fi
 echo "Starting ngrok..."
