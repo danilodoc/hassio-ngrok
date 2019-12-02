@@ -9,16 +9,10 @@ echo "$(bashio::config 'inspect')"
 echo "$(bashio::config 'subdomain')"
 echo "$(bashio::config 'hostname')"
 echo "$(bashio::config 'use_tls')"
-if [[ $(bashio::config 'use_tls') ]]; then
-  echo "true"
+if [[ -n $(bashio::config 'use_tls') ]]; then
+  echo "not null"
 else
-  echo "false"
-fi
-use_tls=$(bashio::config 'use_tls')
-if [[ $(bashio::config 'use_tls') ]]; then
-  echo "true"
-else
-  echo "false"
+  echo "null"
 fi
 
 if [[ -f /share/ngrok.yml ]]; then
@@ -36,7 +30,7 @@ else
   fi
   echo "tunnels:" >> /ngrok-config/ngrok.yml
   echo "  home-assistant:" >> /ngrok-config/ngrok.yml
-  if [[ $(bashio::config 'use_tls') ]]; then
+  if [[ $(bashio::config 'use_tls') == true ]]; then
     echo "    proto: tls" >> /ngrok-config/ngrok.yml
   else 
     echo "    proto: http" >> /ngrok-config/ngrok.yml
