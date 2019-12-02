@@ -5,7 +5,7 @@ AllowedFiles=("ngrok.yaml","ngrok.yml","ngrok.conf")
 configFile=""
 for file in $AllowedFiles
 do
-  if [[ -f /share/$file ]]; then
+  if [[ -f /share/"$file" ]]; then
     configFile=/share/$file
     echo "Found $configFile"
   fi
