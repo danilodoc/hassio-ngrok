@@ -25,7 +25,7 @@ else
     fi
   fi
   if [[ $(bashio::config 'port') != "null" ]]; then
-    echo "    addr: 172.30.32.2:$(bashio::config 'port')" >> /ngrok-config/ngrok.yml
+    echo "    addr: $(bashio::config 'port')" >> /ngrok-config/ngrok.yml
   else
     echo "You must specify a port!"
     exit 1
