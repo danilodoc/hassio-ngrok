@@ -1,17 +1,8 @@
 #!/usr/bin/env bashio
 set -e
 mkdir -p /ngrok-config
-
-echo "$(bashio::config 'auth_token')"
-echo "$(bashio::config 'region')"
-echo "$(bashio::config 'port')"
-echo "$(bashio::config 'inspect')"
-echo "$(bashio::config 'subdomain')"
-echo "$(bashio::config 'hostname')"
-echo "$(bashio::config 'use_tls')"
-
 if [[ -f /share/ngrok.yml ]]; then
-  echo "Starting ngrok using config file found at $configFile"
+  echo "Starting ngrok using config file found at $configFile..."
   cp $configFile /ngrok-config/ngrok.yml
 else
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
@@ -34,7 +25,7 @@ else
     fi
   fi
   if [[ $(bashio::config 'port') != "null" ]]; then
-    echo "    remote_addr: 172.30.32.2:$(bashio::config 'port')" >> /ngrok-config/ngrok.yml
+    echo "    addr: 172.30.32.2:$(bashio::config 'port')" >> /ngrok-config/ngrok.yml
   else
     echo "You must specify a port!"
     exit 1
@@ -44,7 +35,6 @@ else
   elif [[ $(bashio::config 'subdomain') != "null" ]]; then
     echo "    subdomain: $(bashio::config 'subdomain')" >> /ngrok-config/ngrok.yml
   fi
-  cat /ngrok-config/ngrok.yml
-  echo "Starting ngrok"
+  echo "Starting ngrok..."
 fi
 ngrok start --config /ngrok-config/ngrok.yml --all
