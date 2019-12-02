@@ -1,7 +1,7 @@
-ARG BUILD_FROM=homeassistant/armv7-base:3.10
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG BUILD_ARCH=armv7
+ARG BUILD_ARCH
 RUN set -x \
  && apk add --no-cache curl \
  && if [[ "${BUILD_ARCH}" = "aarch64" ]]; then ARCH="arm64"; fi \
