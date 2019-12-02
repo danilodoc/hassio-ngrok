@@ -17,10 +17,10 @@ else
   use_tls=$(jq --raw-output ".use_tls" $CONFIG_PATH)
 
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
-  if [ -n "$auth_token" ]; then
+  if [ "$auth_token" != "" ]; then
     echo "authtoken: $auth_token" >> /ngrok-config/ngrok.yml
   fi
-  if [ -n "$region" ]; then
+  if [ "$region" != "" ]; then
     echo "region: $region" >> /ngrok-config/ngrok.yml
   else
     echo "No region defined, default region is US."
@@ -31,19 +31,19 @@ else
     echo "    proto: tls" >> /ngrok-config/ngrok.yml
   else 
     echo "    proto: http" >> /ngrok-config/ngrok.yml
-    if [ -n $inspect ]; then
+    if [ $inspect != "" ]; then
       echo "    inspect: $inspect" >> /ngrok-config/ngrok.yml
     fi
   fi
-  if [ -n "$port" ]; then
+  if [ "$port" != "" ]; then
     echo "    172.30.32.2:$port" >> /ngrok-config/ngrok.yml
   else
     echo "You must specify a port!"
     exit 1
   fi
-  if [ -n $hostname ]; then
+  if [ $hostname != "" ]; then
     echo "    hostname: $hostname" >> /ngrok-config/ngrok.yml
-  elif [ -n $subdomain ]; then
+  elif [ $subdomain != "" ]; then
     echo "    subdomain: $subdomain" >> /ngrok-config/ngrok.yml
   fi
   cat /ngrok-config/ngrok.yml
