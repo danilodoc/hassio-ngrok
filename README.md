@@ -29,12 +29,11 @@ Example add-on configuration:
 
 ```json
 {
-  "auth_token": "my_authentication_token",
-  "subdomain": "",
-  "hostname": "*.example.com*",
+  "auth_token": "",
   "region": "us",
-  "inspect": false,
-  "use_tls": true
+  "port": 8123,
+  "use_tls": false,
+  "inspect": false
 }
 ```
 
