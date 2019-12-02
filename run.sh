@@ -8,33 +8,33 @@ if [[ -f /share/ngrok.yml ]]; then
 else
 
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
-  if [ -n "$(bashio::config 'auth_token')" ]; then
+  if [[ -n "$(bashio::config 'auth_token')" ]]; then
     echo "authtoken: $(bashio::config 'auth_token')" >> /ngrok-config/ngrok.yml
   fi
-  if [ -n $(bashio::config 'region') ]; then
+  if [[ -n $(bashio::config 'region') ]]; then
     echo "region: $(bashio::config 'region')" >> /ngrok-config/ngrok.yml
   else
     echo "No region defined, default region is US."
   fi
   echo "tunnels:" >> /ngrok-config/ngrok.yml
   echo "  home-assistant:" >> /ngrok-config/ngrok.yml
-  if [ $(bashio::config 'use_tls') ]; then
+  if [[ $(bashio::config 'use_tls') ]]; then
     echo "    proto: tls" >> /ngrok-config/ngrok.yml
   else 
     echo "    proto: http" >> /ngrok-config/ngrok.yml
-    if [ -n $(bashio::config 'inspect') ]; then
+    if [[ -n $(bashio::config 'inspect') ]]; then
       echo "    inspect: $(bashio::config 'inspect')" >> /ngrok-config/ngrok.yml
     fi
   fi
-  if [ -n $(bashio::config 'port') ]; then
+  if [[ -n $(bashio::config 'port') ]]; then
     echo "    172.30.32.2:$(bashio::config 'port')" >> /ngrok-config/ngrok.yml
   else
     echo "You must specify a port!"
     exit 1
   fi
-  if [ -n $(bashio::config 'hostname') ] && [ $(bashio::config 'hostname') != null ]; then
+  if [[ -n $(bashio::config 'hostname') ]] && [[ $(bashio::config 'hostname') != null ]]; then
     echo "    hostname: $(bashio::config 'hostname')" >> /ngrok-config/ngrok.yml
-  elif [ -n $(bashio::config 'subdomain') ] && [ $(bashio::config 'subdomain') != null ]; then
+  elif [[ -n $(bashio::config 'subdomain') ]] && [[ $(bashio::config 'subdomain') != null ]]; then
     echo "    subdomain: $(bashio::config 'subdomain')" >> /ngrok-config/ngrok.yml
   fi
   cat /ngrok-config/ngrok.yml
