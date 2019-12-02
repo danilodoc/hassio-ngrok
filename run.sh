@@ -3,7 +3,7 @@ set -e
 mkdir -p /ngrok-config
 if [[ -f /share/ngrok.yml ]]; then
   echo "Found ngrok.yml in /share"
-  cp $configFile /ngrok-config/ngrok.yml
+  cp /share/ngrok.yml /ngrok-config/ngrok.yml
 else
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
   if [[ "$(bashio::config 'auth_token')" != "null" ]]; then
