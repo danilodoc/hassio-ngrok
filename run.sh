@@ -46,7 +46,7 @@ else
   elif [ -n $subdomain ]; then
     echo "    subdomain: $subdomain" >> /ngrok-config/ngrok.yml
   fi
-
+  cat /ngrok-config/ngrok.yml
   echo "Starting ngrok"
 fi
 
