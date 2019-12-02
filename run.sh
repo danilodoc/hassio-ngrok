@@ -9,6 +9,17 @@ echo "$(bashio::config 'inspect')"
 echo "$(bashio::config 'subdomain')"
 echo "$(bashio::config 'hostname')"
 echo "$(bashio::config 'use_tls')"
+if [[ $(bashio::config 'use_tls') ]]; then
+  echo "true"
+else
+  echo "false"
+fi
+use_tls=$(bashio::config 'use_tls')
+if [[ $(bashio::config 'use_tls') ]]; then
+  echo "true"
+else
+  echo "false"
+fi
 
 if [[ -f /share/ngrok.yml ]]; then
   echo "Starting ngrok using config file found at $configFile"
