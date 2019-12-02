@@ -28,23 +28,23 @@ else
   echo "tunnels:" >> /ngrok-config/ngrok.yml
   echo "  home-assistant:" >> /ngrok-config/ngrok.yml
   if [ $use_tls ]; then
-    echo "    proto: tls"
+    echo "    proto: tls" >> /ngrok-config/ngrok.yml
   else 
-    echo "    proto: http"
+    echo "    proto: http" >> /ngrok-config/ngrok.yml
     if [ -n $inspect ]; then
-      echo "    inspect: $inspect"
+      echo "    inspect: $inspect" >> /ngrok-config/ngrok.yml
     fi
   fi
   if [ -n "$port" ]; then
-    echo "    172.30.32.2:$port"
+    echo "    172.30.32.2:$port" >> /ngrok-config/ngrok.yml
   else
     echo "You must specify a port!"
     exit 1
   fi
   if [ -n $hostname ]; then
-    echo "    hostname: $hostname"
+    echo "    hostname: $hostname" >> /ngrok-config/ngrok.yml
   elif [ -n $subdomain ]; then
-    echo "    subdomain: $subdomain"
+    echo "    subdomain: $subdomain" >> /ngrok-config/ngrok.yml
   fi
 
   echo "Starting ngrok"
