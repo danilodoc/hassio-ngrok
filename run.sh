@@ -2,7 +2,7 @@
 set -e
 mkdir -p /ngrok-config
 AllowedFiles=("ngrok.yaml","ngrok.yml","ngrok.conf")
-declare configFile
+configFile=""
 for file in $AllowedFiles
 do
   if [[ -f /share/$file ]]; then
@@ -29,7 +29,7 @@ else
   if [ -n "$auth_token" ]; then
     echo "authtoken: $auth_token" >> /ngrok-config/ngrok.yml
   fi
-  if [ -n "$region" ]
+  if [ -n "$region" ]; then
     echo "region: $region" >> /ngrok-config/ngrok.yml
   else
     echo "No region defined, default region is US."
