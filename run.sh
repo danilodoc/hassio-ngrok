@@ -1,17 +1,8 @@
 #!/usr/bin/env bashio
 set -e
 mkdir -p /ngrok-config
-AllowedFiles=("ngrok.yaml","ngrok.yml","ngrok.conf")
-configFile=""
-for file in $AllowedFiles
-do
-  if [[ -f /share/"$file" ]]; then
-    configFile=/share/$file
-    echo "Found $configFile"
-  fi
-done
 
-if [[ -n configFile ]]; then
+if [[ -f /share/ngrok.yml ]]; then
   echo "Starting ngrok using config file found at $configFile"
   cp $configFile /ngrok-config/ngrok.yml
 else
