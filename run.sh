@@ -2,7 +2,7 @@
 set -e
 mkdir -p /ngrok-config
 if [[ -f /share/ngrok.yml ]]; then
-  echo "Starting ngrok using config file found at $configFile..."
+  echo "Found ngrok.yml in /share"
   cp $configFile /ngrok-config/ngrok.yml
 else
   echo "web_addr: 0.0.0.0:4040" > /ngrok-config/ngrok.yml
@@ -35,6 +35,6 @@ else
   elif [[ $(bashio::config 'subdomain') != "null" ]]; then
     echo "    subdomain: $(bashio::config 'subdomain')" >> /ngrok-config/ngrok.yml
   fi
-  echo "Starting ngrok..."
 fi
+echo "Starting ngrok..."
 ngrok start --config /ngrok-config/ngrok.yml --all
