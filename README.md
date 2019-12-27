@@ -16,7 +16,7 @@ To use some features of this add-on, you need a paid ngrok account._
 
 ## How to use
 
-1. Add the Github repo to your Hass.io: [https://github.com/ThePicklenat0r/hassio-addons](https://github.com/ThePicklenat0r/hassio-addons)
+1. Add the Github repo to your Hass.io: <https://github.com/ThePicklenat0r/hassio-addons>
 2. Install the addon
 3. You have 3 options for configuration:
     1. Leave the default configuration and start the addon.
@@ -24,7 +24,7 @@ To use some features of this add-on, you need a paid ngrok account._
       data to ngrok!_
     2. Configure the options in the addon (see descriptions for each option below).
     3. Create a custom configuration file for ngrok and save it to /share/ngrok-config
-      with the name ngrok.yml. See [ngrok's documentation](https://ngrok.com/docs#config-options) for details on how to create a configuration file.
+      with the name ngrok.yml. See [ngrok's documentation][ngrok-config-file] for details on how to create a configuration file.
       This method overrides any options set through the addon config.
 4. Start the addon
 
@@ -72,8 +72,9 @@ in | India
 
 ### Option: `tunnels`
 
-Define ngrok tunnels. Please read [ngrok's documentation][ngrok-tunnel-def] for
+Define ngrok tunnels as a JSON list. You do not need to define a tunnel name. Please read [ngrok's documentation][ngrok-tunnel-def] for
 a description of each available option. All defined tunnel definition options
 are available in this addon.
 
+[ngrok-config-file]: https://ngrok.com/docs#config-options
 [ngrok-tunnel-def]: https://ngrok.com/docs#tunnel-definitions
