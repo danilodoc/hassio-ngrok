@@ -9,7 +9,6 @@ This add-on creates a ngrok tunnel over http and https. Some ISPs do not allow
 port forwarding due to port blocking or CG-NAT. If you're able to setup a port
 forward, do not use this addon.
 
-
 **Note**: _ngrok could man-in-the-middle your http tunnels if they wanted.
 Using a TLS tunnel will prevent this because you can control the certificate.
 To use some features of this add-on, you need a paid ngrok account._
@@ -18,14 +17,7 @@ To use some features of this add-on, you need a paid ngrok account._
 
 1. Add the Github repo to your Hass.io: <https://github.com/ThePicklenat0r/hassio-addons>
 2. Install the addon
-3. You have 3 options for configuration:
-    1. Leave the default configuration and start the addon.
-      _This is **not** recommended as the default configuration can expose your
-      data to ngrok!_
-    2. Configure the options in the addon (see descriptions for each option below).
-    3. Create a custom configuration file for ngrok and save it to /share/ngrok-config
-      with the name ngrok.yml. See [ngrok's documentation][ngrok-config-file] for details on how to create a configuration file.
-      This method overrides any options set through the addon config.
+3. Configure the options in the addon (see descriptions for each option below).
 4. Start the addon
 
 **Note**: _If you did not specify a `subdomain` or `hostname` you will need to open the web interface to get your ngrok.io url._
@@ -43,9 +35,12 @@ Example add-on configuration:
   "tunnels":
     [
       {
-        "proto": "tls",
-        "addr": "8123",
-        "hostname": "home.example.com"
+        "name": "tls-example",
+        "definition": {
+          "proto": "tls",
+          "addr": "8123",
+          "hostname": "home.example.com"
+        }
       }
     ]
 }
@@ -72,9 +67,9 @@ options are available:
 
 ### Option: `tunnels`
 
-Define ngrok tunnels as a JSON list. You do not need to define a tunnel name. Please read [ngrok's documentation][ngrok-tunnel-def] for
-a description of each available option. All defined tunnel definition options
-are available in this addon.
+Define ngrok tunnels as a JSON list. You must specify a `name` and `definition`
+for each tunnel. Please read [ngrok's documentation][ngrok-tunnel-def] for a
+description of each available option used in the `definition`. All ngrok tunnel
+definition options are available in this addon.
 
-[ngrok-config-file]: https://ngrok.com/docs#config-options
 [ngrok-tunnel-def]: https://ngrok.com/docs#tunnel-definitions
