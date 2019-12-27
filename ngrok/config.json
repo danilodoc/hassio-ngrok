@@ -25,18 +25,36 @@
   "options": {
     "auth_token": "",
     "region": "us",
-    "port": 8123,
-    "use_tls": false,
-    "inspect": false
+    "tunnels":
+      [
+        {
+          "proto": "http",
+          "addr": "8123",
+          "inspect": false
+        }
+      ]
   },
   "schema": {
     "auth_token": "str?",
     "region": "list(us|eu|ap|au|sa|jp|in)?",
-    "port": "int(1,65535)?",
-    "use_tls": "bool?",
-    "inspect": "bool?",
-    "subdomain": "str?",
-    "hostname": "str?"
+    "tunnels":
+    [
+      {
+        "proto": "list(http|tls|tcp)",
+        "addr": "int(1-65535)",
+        "inspect": "bool?",
+        "auth": "str?",
+        "host_header": "str?",
+        "bind_tls": "list(true|false|both)?",
+        "subdomain": "str?",
+        "hostname": "str?",
+        "crt": "str?",
+        "key": "str?",
+        "client_cas": "str?",
+        "remote_addr": "int(1-65535)?",
+        "metadata": "str?"
+      }
+    ]
   },
   "image": "thepicklenat0r/{arch}-hassio-ngrok"
 }
