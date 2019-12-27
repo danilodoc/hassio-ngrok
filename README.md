@@ -43,7 +43,7 @@ Example add-on configuration:
   "tunnels":
     [
       {
-        "proto": "proto",
+        "proto": "tls",
         "addr": "8123",
         "hostname": "home.example.com"
       }
