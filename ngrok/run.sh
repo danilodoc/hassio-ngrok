@@ -35,6 +35,11 @@ else
   elif [[ $(bashio::config 'subdomain') != "null" ]]; then
     echo "    subdomain: \"$(bashio::config 'subdomain')\"" >> /ngrok-config/ngrok.yml
   fi
+
+  jq 
+
+
+
 fi
 echo "Starting ngrok..."
 ngrok start --config /ngrok-config/ngrok.yml --all
