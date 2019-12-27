@@ -28,7 +28,7 @@
     "tunnels":
       [
         {
-          "name": "tunnel-1",
+          "name": "hass",
           "definition": {
             "proto": "http",
             "addr": "8123",
