@@ -61,14 +61,14 @@ Set your ngrok authentication token. This option is required if using a custom
 Specifies where the ngrok client will connect to host its tunnels. The following
 options are available:
 
-**Option** | **Location**
-:---:|:---
-us | United States
-eu | Europe
-ap | Asia/Pacific
-au | Australia
-sa | South America
-in | India
+| **Option** | **Location**  |
+| :--------: | :------------ |
+| us         | United States |
+| eu         | Europe        |
+| ap         | Asia/Pacific  |
+| au         | Australia     |
+| sa         | South America |
+| in         | India         |
 
 ### Option: `tunnels`
 
