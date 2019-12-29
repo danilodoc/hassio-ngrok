@@ -35,12 +35,9 @@ Example add-on configuration:
   "tunnels":
     [
       {
-        "name": "tls-example",
-        "definition": {
-          "proto": "tls",
-          "addr": "8123",
-          "hostname": "home.example.com"
-        }
+        "proto": "tls",
+        "addr": "8123",
+        "hostname": "home.example.com"
       }
     ]
 }
