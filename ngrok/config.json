@@ -27,12 +27,9 @@
     "tunnels":
       [
         {
-          "name": "hass",
-          "definition": {
-            "proto": "http",
-            "addr": "8123",
-            "inspect": false
-          }
+          "proto": "http",
+          "addr": "8123",
+          "inspect": false
         }
       ]
   },
@@ -42,22 +39,19 @@
     "tunnels":
     [
       {
-        "name": "str",
-        "definition": {
-          "proto": "list(http|tls|tcp)",
-          "addr": "int(1-65535)",
-          "inspect": "bool?",
-          "auth": "str?",
-          "host_header": "str?",
-          "bind_tls": "list(true|false|both)?",
-          "subdomain": "str?",
-          "hostname": "str?",
-          "crt": "str?",
-          "key": "str?",
-          "client_cas": "str?",
-          "remote_addr": "int(1-65535)?",
-          "metadata": "str?"
-        }
+        "proto": "list(http|tls|tcp)",
+        "addr": "int(1-65535)",
+        "inspect": "bool?",
+        "auth": "str?",
+        "host_header": "str?",
+        "bind_tls": "list(true|false|both)?",
+        "subdomain": "str?",
+        "hostname": "str?",
+        "crt": "str?",
+        "key": "str?",
+        "client_cas": "str?",
+        "remote_addr": "int(1-65535)?",
+        "metadata": "str?"
       }
     ]
   },
