@@ -40,7 +40,7 @@
     [
       {
         "proto": "list(http|tls|tcp)",
-        "addr": "int(1-65535)",
+        "addr": "int(1,65535)",
         "inspect": "bool?",
         "auth": "str?",
         "host_header": "str?",
@@ -50,7 +50,7 @@
         "crt": "str?",
         "key": "str?",
         "client_cas": "str?",
-        "remote_addr": "int(1-65535)?",
+        "remote_addr": "int(1,65535)?",
         "metadata": "str?"
       }
     ]
