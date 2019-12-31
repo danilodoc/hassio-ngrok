@@ -28,7 +28,7 @@
       [
         {
           "proto": "http",
-          "addr": "8123",
+          "addr": 8123,
           "inspect": false
         }
       ]
