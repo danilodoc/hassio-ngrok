@@ -44,7 +44,7 @@
         "inspect": "bool?",
         "auth": "str?",
         "host_header": "str?",
-        "bind_tls": "list(true|false|both)?",
+        "bind_tls": "bool?",
         "subdomain": "str?",
         "hostname": "str?",
         "crt": "str?",
