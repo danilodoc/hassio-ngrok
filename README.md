@@ -1,3 +1,4 @@
+![Build Status](.github/workflows/deploy-addon.yml/badge.svg)
 
 # Hass.io ngrok Client
 
