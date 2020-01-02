@@ -1,0 +1,151 @@
+name: Deploy Addon
+
+on:
+  release:
+    types: [published]
+
+env:
+  versionBuilder: '6.6'                # Version of the Hass.io Builder to run
+  addon: ngrok                         # Add-on slug. Must match the slug listed in config.json
+  repoAddons: hassio-addons            # Release repository to publish to
+  repoBetaAddons: hassio-addons-beta   # Beta repository to publish to. If you do not want to publish beta versions, delete this line.
+  dockerUser: thepicklenat0r           # The Docker Hub user to authenticate with.
+  dockerRepo: thepicklenat0r           # The Docker Hub repository to publish to.
+  repoOwner: thepicklenat0r            # The owner of the addon repository on GitHub
+  gitUserName: Dylan Hasler            # Name for git to use.
+  gitUserEmail: dylan@hasler.me        # Email for git to use. Must be authorized to make changes to repoAddons and repoBetaAddons
+
+  # Additionally you must supply secrets:
+    # dockerToken                      # Authentication token for dockerUser
+    # repoToken                        # GitHub Public Access Token for gitUserEmail
+
+
+jobs:
+  validate:
+    name: Validate addon
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Validate Addon Slug
+      run: |
+        if [[ $(jq -r '.slug' $addon/config.json) != $addon ]]; then
+          exit 1
+        fi
+  build:
+    name: Build addon
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Docker Hub Login
+      run: sudo docker login -u $dockerUser -p ${{ secrets.dockerToken }}
+    - name: Install Hass.io Builder
+      run: sudo docker pull homeassistant/amd64-builder:$versionBuilder
+    - name: Update config.json
+      run: |
+        jq --arg version "${GITHUB_REF##*/}" '.version = $version' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        jq --arg addon "{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        cat $addon/config.json
+    - name: Build Add-on
+      run: |
+        declare arch
+        archConfig=$(jq -r '.arch[]' $addon/config.json)
+        if [[ $archConfig =~ armhf ]]; then
+          arch="$arch --armhf"
+        fi
+        if [[ $archConfig =~ armv7 ]]; then
+          arch="$arch --armv7"
+        fi
+        if [[ $archConfig =~ amd64 ]]; then
+          arch="$arch --amd64"
+        fi
+        if [[ $archConfig =~ aarch64 ]]; then
+          arch="$arch --aarch64"
+        fi
+        if [[ $archConfig =~ i386 ]]; then
+          arch="$arch --i386"
+        fi
+        arch="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<<${arch})"
+        sudo docker run --rm --privileged \
+        -v ~/.docker:/root/.docker \
+        -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
+        homeassistant/amd64-builder:$versionBuilder \
+        --addon $arch -t /data/$addon \
+        --docker-hub $dockerRepo --docker-hub-check \
+        --test
+  publish:
+    name: Publish addon
+    needs: [validate, build]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Update config.json
+      run: |
+        jq --arg version "${GITHUB_REF##*/}" '.version = $version' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        jq --arg addon "{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        cat $addon/config.json
+    - name: Install requirements
+      run: |
+        sudo apt-get install -y --no-install-recommends \
+          git jq curl
+        git config --global user.name "$gitUserName"
+        git config --global user.email "$gitUserEmail"
+        git config --global credential.helper store
+        echo "https://${{ secrets.repoToken }}:x-oauth-basic@github.com" > $HOME/.git-credentials
+    - name: 'Copy required files'
+      run: |
+        version="${GITHUB_REF##*/}"
+        repo="$repoAddons"
+        workspace=${GITHUB_WORKSPACE}
+        repoBuild=${GITHUB_REPOSITORY}
+
+        function copy_files () {
+          cd ../
+          git clone $repoUrl
+          mkdir -p "$repo/$addon"
+          cd "$repo/$addon"
+          echo "  Copying config.json"
+          cp $workspace/$addon/config.json config.json
+          if [ -f $workspace/$addon/icon.png ]; then
+            echo "  Copying icon.png"
+            cp $workspace/$addon/icon.png icon.png
+          fi
+          if [ -f $workspace/$addon/logo.png ]; then
+            echo "  Copying logo.png"
+            cp $workspace/$addon/logo.png logo.png
+          fi
+          if [ -f $workspace/README.md ]; then
+            echo "  Copying README.md"
+            cp $workspace/README.md README.md
+          fi
+          if [ -f "$workspace/$addon/CHANGELOG.md" ]; then
+            echo "  Copying CHANGELOG.md"
+            cp $workspace/$addon/CHANGELOG.md CHANGELOG.md
+          else
+            echo "  Generating CHANGELOG.md"
+            curl -u "$repoOwner":"${{ secrets.GITHUB_TOKEN }}" \
+            https://api.github.com/repos/$repoBuild/releases/tags/$version |\
+            jq -r '.body' > CHANGELOG.md
+          fi
+          git add --all
+          git commit -am "Bump $addon version"
+          git push origin master
+          cd $workspace
+        }
+        repoUrl="https://github.com/$repoOwner/$repoAddons"
+        if [[ "$version" =~ b ]] && [[ -n $repoBetaAddons ]]; then
+          repoUrl="https://github.com/$repoOwner/$repoBetaAddons"
+          repo=$repoBetaAddons
+          copy_files
+        elif [[ -n $repoBetaAddons ]]; then
+          copy_files
+          repoUrl="https://github.com/$repoOwner/$repoBetaAddons"
+          repo=$repoBetaAddons
+          copy_files
+        else
+          copy_files
+        fi
