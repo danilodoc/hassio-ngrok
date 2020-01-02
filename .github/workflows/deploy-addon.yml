@@ -73,8 +73,7 @@ jobs:
         -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
         homeassistant/amd64-builder:$versionBuilder \
         --addon $arch -t /data/$addon \
-        --docker-hub $dockerRepo --docker-hub-check \
-        --test
+        --docker-hub $dockerRepo --docker-hub-check
   publish:
     name: Publish addon
     needs: [validate, build]
