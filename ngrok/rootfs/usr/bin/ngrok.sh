@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 set -e
-mkdir -p /ngrok
+mkdir -p /ngrok-config
 echo "log: stdout" > /ngrok-config/ngrok.yml
 if bashio::var.has_value "$(bashio::addon.port 4040)"; then
   echo "web_addr: 0.0.0.0:$(bashio::addon.port 4040)" >> /ngrok-config/ngrok.yml
