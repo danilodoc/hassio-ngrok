@@ -74,6 +74,6 @@ for id in $(bashio::config "tunnels|keys"); do
   fi
 done
 
-cat /ngrok-config/ngrok.yml | bashio::log.debug
+bashio::log.debug cat /ngrok-config/ngrok.yml
 
 ngrok start --config /ngrok-config/ngrok.yml --all
