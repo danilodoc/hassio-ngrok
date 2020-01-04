@@ -2,16 +2,17 @@
 set -e
 mkdir -p /ngrok-config
 echo "log: stdout" > /ngrok-config/ngrok.yml
-if bashio::var.has_value "$(bashio::addon.port 4040)"; then
-  echo "web_addr: 0.0.0.0:$(bashio::addon.port 4040)" >> /ngrok-config/ngrok.yml
+port=$(bashio::addon.port 4040)
+if bashio::var.has_value "${port}"; then
+  echo "web_addr: 0.0.0.0:${port}" >> /ngrok-config/ngrok.yml
 fi
 if bashio::var.has_value "$(bashio::config 'log_level')"; then
   echo "log_level: $(bashio::config 'log_level')" > /ngrok-config/ngrok.yml
 fi
-if [[ "$(bashio::config 'auth_token')" != "null" ]]; then
+if bashio::var.has_value "$(bashio::config 'auth_token')"; then
   echo "authtoken: $(bashio::config 'auth_token')" >> /ngrok-config/ngrok.yml
 fi
-if [[ $(bashio::config 'region') != "null" ]]; then
+if bashio::var.has_value "$(bashio::config 'region')"; then
   echo "region: $(bashio::config 'region')" >> /ngrok-config/ngrok.yml
 else
   echo "No region defined, default region is US."
@@ -74,5 +75,5 @@ for id in $(bashio::config "tunnels|keys"); do
   fi
 done
 configfile=$(cat /ngrok-config/ngrok.yml)
-bashio::log.debug "$configfile"
+bashio::log.debug "${configfile}"
 ngrok start --config /ngrok-config/ngrok.yml --all
