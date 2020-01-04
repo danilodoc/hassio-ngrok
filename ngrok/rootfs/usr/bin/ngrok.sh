@@ -18,7 +18,8 @@ else
 fi
 echo "tunnels:" >> /ngrok-config/ngrok.yml
 for id in $(bashio::config "tunnels|keys"); do
-  echo "  $(bashio::config 'tunnels[${id}].name'):" >> /ngrok-config/ngrok.yml
+  name=$(bashio::config "tunnels[${id}].name")
+  echo "  $name:" >> /ngrok-config/ngrok.yml
   proto=$(bashio::config "tunnels[${id}].proto")
   if [[ $proto != "null" ]]; then
     echo "    proto: $proto" >> /ngrok-config/ngrok.yml
