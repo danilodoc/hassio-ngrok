@@ -22,11 +22,13 @@
     "4040/tcp": "Web interface"
   },
   "options": {
+    "log_level": "info",
     "auth_token": "",
     "region": "us",
     "tunnels":
       [
         {
+          "name": "hass",
           "proto": "http",
           "addr": 8123,
           "inspect": false
@@ -34,11 +36,13 @@
       ]
   },
   "schema": {
+    "log_level": "match(^(crit|warn|error|info|debug)$)",
     "auth_token": "str?",
     "region": "list(us|eu|ap|au|sa|jp|in)?",
     "tunnels":
     [
       {
+        "name": "str",
         "proto": "list(http|tls|tcp)",
         "addr": "int(1,65535)",
         "inspect": "bool?",
