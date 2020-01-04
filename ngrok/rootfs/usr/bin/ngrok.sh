@@ -3,6 +3,7 @@ set -e
 mkdir -p /ngrok-config
 echo "log: stdout" > /ngrok-config/ngrok.yml
 port=$(bashio::addon.port 4040)
+bashio::log.debug "${port}"
 if bashio::var.has_value "${port}"; then
   echo "web_addr: 0.0.0.0:$port" >> /ngrok-config/ngrok.yml
 fi
@@ -75,5 +76,5 @@ for id in $(bashio::config "tunnels|keys"); do
   fi
 done
 configfile=$(cat /ngrok-config/ngrok.yml)
-bashio::log.debug "\n${configfile}"
+bashio::log.debug "Config file: \n${configfile}"
 ngrok start --config /ngrok-config/ngrok.yml --all
