@@ -73,7 +73,6 @@ for id in $(bashio::config "tunnels|keys"); do
     echo "    metadata: $metadata" >> /ngrok-config/ngrok.yml
   fi
 done
-
-bashio::log.debug cat /ngrok-config/ngrok.yml
-
+configfile=$(cat /ngrok-config/ngrok.yml)
+bashio::log.debug "$configfile"
 ngrok start --config /ngrok-config/ngrok.yml --all
