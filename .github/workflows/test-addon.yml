@@ -8,6 +8,7 @@ on:
 env:
   versionBuilder: '6.6'                # Version of the Hass.io Builder to run
   addon: ngrok                         # Add-on slug. Must match the slug listed in config.json
+  dockerRepo: thepicklenat0r           # The Docker Hub repository to publish to.  
 
 
 jobs:
@@ -33,7 +34,7 @@ jobs:
       run: |
         jq --arg version "${GITHUB_REF##*/}" '.version = $version' $addon/config.json \
         > config.json.tmp && mv config.json.tmp $addon/config.json
-        jq --arg addon "{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
+        jq --arg addon "$dockerRepo/{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
         > config.json.tmp && mv config.json.tmp $addon/config.json
         cat $addon/config.json
     - name: Build Add-on
