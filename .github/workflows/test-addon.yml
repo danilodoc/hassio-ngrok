@@ -1,0 +1,64 @@
+name: Test Build Addon
+
+on:
+  pull_request:
+    branches:
+      - master
+
+env:
+  versionBuilder: '6.6'                # Version of the Hass.io Builder to run
+  addon: ngrok                         # Add-on slug. Must match the slug listed in config.json
+
+
+jobs:
+  validate:
+    name: Validate addon
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Validate Addon Slug
+      run: |
+        if [[ $(jq -r '.slug' $addon/config.json) != $addon ]]; then
+          exit 1
+        fi
+  build:
+    name: Build addon
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Hass.io Builder
+      run: sudo docker pull homeassistant/amd64-builder:$versionBuilder
+    - name: Update config.json
+      run: |
+        jq --arg version "${GITHUB_REF##*/}" '.version = $version' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        jq --arg addon "$dockerRepo/{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
+        > config.json.tmp && mv config.json.tmp $addon/config.json
+        cat $addon/config.json
+    - name: Build Add-on
+      run: |
+        declare arch
+        archConfig=$(jq -r '.arch[]' $addon/config.json)
+        if [[ $archConfig =~ armhf ]]; then
+          arch="$arch --armhf"
+        fi
+        if [[ $archConfig =~ armv7 ]]; then
+          arch="$arch --armv7"
+        fi
+        if [[ $archConfig =~ amd64 ]]; then
+          arch="$arch --amd64"
+        fi
+        if [[ $archConfig =~ aarch64 ]]; then
+          arch="$arch --aarch64"
+        fi
+        if [[ $archConfig =~ i386 ]]; then
+          arch="$arch --i386"
+        fi
+        arch="$(sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' <<<${arch})"
+        sudo docker run --rm --privileged \
+        -v ~/.docker:/root/.docker \
+        -v /run/docker.sock:/run/docker.sock:rw -v $(pwd):/data:ro \
+        homeassistant/amd64-builder:$versionBuilder \
+        --addon $arch -t /data/$addon \
+        --test
