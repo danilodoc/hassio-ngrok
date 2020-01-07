@@ -1,0 +1,62 @@
+{
+  "name": "ngrok Client",
+  "version": "dev",
+  "slug": "ngrok",
+  "description": "A ngrok client for Hass.io",
+  "webui": "http://[HOST]:[PORT:4040]",
+  "url": "https://github.com/ThePicklenat0r/hassio-ngrok",
+  "arch": [
+    "aarch64",
+    "amd64",
+    "armhf",
+    "armv7",
+    "i386"
+  ],
+  "startup": "system",
+  "boot": "auto",
+  "host_network": true,
+  "ports": {
+    "4040/tcp": "4040"
+  },
+  "ports_description": {
+    "4040/tcp": "Web interface"
+  },
+  "options": {
+    "log_level": "info",
+    "auth_token": "",
+    "region": "us",
+    "tunnels":
+      [
+        {
+          "name": "hass",
+          "proto": "http",
+          "addr": 8123,
+          "inspect": false
+        }
+      ]
+  },
+  "schema": {
+    "log_level": "match(^(crit|warn|error|info|debug)$)",
+    "auth_token": "str?",
+    "region": "list(us|eu|ap|au|sa|jp|in)?",
+    "tunnels":
+    [
+      {
+        "name": "str",
+        "proto": "list(http|tls|tcp)",
+        "addr": "int(1,65535)",
+        "inspect": "bool?",
+        "auth": "str?",
+        "host_header": "str?",
+        "bind_tls": "bool?",
+        "subdomain": "str?",
+        "hostname": "str?",
+        "crt": "str?",
+        "key": "str?",
+        "client_cas": "str?",
+        "remote_addr": "int(1,65535)?",
+        "metadata": "str?"
+      }
+    ]
+  }
+}

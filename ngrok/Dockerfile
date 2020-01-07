@@ -1,7 +1,11 @@
-ARG BUILD_FROM=homeassistant/amd64-base:3.10
+ARG BUILD_FROM
 FROM $BUILD_FROM
 
-ARG BUILD_ARCH=amd64
+# Copy root filesystem
+COPY rootfs /
+
+# Setup requirements
+ARG BUILD_ARCH
 RUN set -x \
  && apk add --no-cache \
         curl \
@@ -17,15 +21,6 @@ RUN set -x \
  && curl -Lo /ngrok.zip https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-${ARCH}.zip \
  && unzip -o /ngrok.zip -d /bin \
  && rm -f /ngrok.zip
-RUN  ngrok --version
-RUN mkdir /ngrok-config
-COPY rootfs /
-COPY run.sh /
-RUN chmod +x /run.sh
-CMD ["/run.sh"]
 
-LABEL \
-    io.hass.name="ngrok Client" \
-    io.hass.description="A ngrok client for Hass.io" \
-    io.hass.type="addon" \
-    maintainer="Dylan Hasler <dylan@hasler.me>"
+# Initialize ngrok
+RUN  ngrok --version
