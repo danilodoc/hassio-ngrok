@@ -33,7 +33,7 @@ jobs:
       run: |
         jq --arg version "${GITHUB_REF##*/}" '.version = $version' $addon/config.json \
         > config.json.tmp && mv config.json.tmp $addon/config.json
-        jq --arg addon "$dockerRepo/{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
+        jq --arg addon "{arch}-hassio-$addon" '.image = $addon' $addon/config.json \
         > config.json.tmp && mv config.json.tmp $addon/config.json
         cat $addon/config.json
     - name: Build Add-on
