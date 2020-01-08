@@ -1,8 +1,4 @@
 #!/usr/bin/with-contenv bashio
-# ==============================================================================
-# Community Hass.io Add-ons: Portainer
-# Configures NGINX
-# ==============================================================================
 declare certfile
 declare hassio_dns
 declare ingress_interface
