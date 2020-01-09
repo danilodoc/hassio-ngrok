@@ -5,7 +5,8 @@ declare ingress_interface
 declare ingress_port
 declare keyfile
 
-if bashio::var.has_value "$(bashio::addon.port 4040)"; then
+port=$(bashio::addon.port 4040)
+if bashio::var.has_value "${port}"; then
     bashio::config.require.ssl
 
     if bashio::config.true 'ssl'; then
