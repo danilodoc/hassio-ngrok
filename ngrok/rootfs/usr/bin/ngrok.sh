@@ -1,5 +1,6 @@
 #!/usr/bin/with-contenv bashio
 set -e
+bashio::log.debug "Building ngrok.yml..."
 configPath="/ngrok-config/ngrok.yml"
 mkdir -p /ngrok-config
 echo "log: stdout" > $configPath
@@ -25,7 +26,11 @@ for id in $(bashio::config "tunnels|keys"); do
   fi
   addr=$(bashio::config "tunnels[${id}].addr")
   if [[ $addr != "null" ]]; then
-    echo "    addr: $addr" >> $configPath
+    if [[ $addr =~ ^([1-9]|[1-5]?[0-9]{2,4}|6[1-4][0-9]{3}|65[1-4][0-9]{2}|655[1-2][0-9]|6553[1-5])$ ]]; then
+      echo "    addr: 172.30.32.1:$addr" >> $configPath
+    else
+      echo "    addr: $addr" >> $configPath
+    fi
   fi
   inspect=$(bashio::config "tunnels[${id}].inspect")
   if [[ $inspect != "null" ]]; then
@@ -74,4 +79,5 @@ for id in $(bashio::config "tunnels|keys"); do
 done
 configfile=$(cat $configPath)
 bashio::log.debug "Config file: \n${configfile}"
+bashio::log.info "Starting ngrok..."
 ngrok start --config $configPath --all
