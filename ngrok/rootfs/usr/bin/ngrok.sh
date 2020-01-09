@@ -4,7 +4,7 @@ bashio::log.debug "Building ngrok.yml..."
 configPath="/ngrok-config/ngrok.yml"
 mkdir -p /ngrok-config
 echo "log: stdout" > $configPath
-echo "web_addr: localhost:54542"
+echo "web_addr: 172.0.0.1:54542" >> $configPath
 if bashio::var.has_value "$(bashio::config 'log_level')"; then
   echo "log_level: $(bashio::config 'log_level')" >> $configPath
 fi
