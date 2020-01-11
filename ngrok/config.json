@@ -40,7 +40,7 @@
       ]
   },
   "schema": {
-    "log_level": "list(crit|warn|error|info|debug)$)",
+    "log_level": "list(crit|warn|error|info|debug)",
     "ssl": "bool",
     "certfile": "str",
     "keyfile": "str",
