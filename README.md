@@ -85,6 +85,7 @@ details, see [ngrok's documentation][ngrok_docs_tunnels].
 | `client_cas`  | tls       | PEM TLS certificate authority at this path will verify incoming TLS client connection certificates. |
 | `remote_addr` | tcp       | bind the remote TCP port on the given address                                                       |
 | `metadata`    | all       | arbitrary user-defined metadata that will appear in the ngrok service API when listing tunnels      |
+
 *required
 
 [ngrok_docs_tunnels]: https://ngrok.com/docs#tunnel-definitions
