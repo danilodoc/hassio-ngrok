@@ -11,7 +11,7 @@ RUN set -x \
         curl \
         lua-resty-http=0.15-r0 \
         nginx-mod-http-lua=1.16.1-r4 \
-        nginx=1.16.1-r4
+        nginx=1.16.1-r4 \
  && if [[ "${BUILD_ARCH}" = "aarch64" ]]; then ARCH="arm64"; fi \
  && if [[ "${BUILD_ARCH}" = "amd64" ]]; then ARCH="amd64"; fi \
  && if [[ "${BUILD_ARCH}" = "armhf" ]]; then ARCH="arm"; fi \
